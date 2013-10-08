@@ -24,6 +24,7 @@ namespace ProjectCoral
 
         private Butterfly _butterfly;
         private Frog _frog;
+        private Batty _bat;
 
         private KeyboardState _currentKeyboardState;
         private KeyboardState _previousKeyboardState;
@@ -35,6 +36,7 @@ namespace ProjectCoral
 
             _frog = new Frog(this);
             _butterfly = new Butterfly(this);
+            _bat = new Batty(this);
             _camera = new Camera(graphics);
         }
 
@@ -65,6 +67,7 @@ namespace ProjectCoral
 
             _butterfly.LoadContent(Content);
             _frog.LoadContent(Content);
+            _bat.LoadContent(Content);
         }
 
         /// <summary>
@@ -91,6 +94,7 @@ namespace ProjectCoral
 
             _butterfly.Update(gameTime);
             _frog.Update(gameTime);
+            _bat.Update(gameTime);
 
             // Camera logic here
             if (_currentKeyboardState.IsKeyDown(Keys.Up))
@@ -119,6 +123,7 @@ namespace ProjectCoral
 
             _butterfly.Draw(graphics, gameTime);
             _frog.Draw(graphics, gameTime);
+            _bat.Draw(graphics, gameTime);
 
 
             base.Draw(gameTime);
