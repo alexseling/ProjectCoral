@@ -23,6 +23,7 @@ namespace ProjectCoral
         public Camera Camera {get { return _camera; }}
 
         private Butterfly _butterfly;
+        private Frog _frog;
 
         private KeyboardState _currentKeyboardState;
         private KeyboardState _previousKeyboardState;
@@ -32,6 +33,7 @@ namespace ProjectCoral
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
+            _frog = new Frog(this);
             _butterfly = new Butterfly(this);
             _camera = new Camera(graphics);
         }
@@ -62,6 +64,7 @@ namespace ProjectCoral
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _butterfly.LoadContent(Content);
+            _frog.LoadContent(Content);
         }
 
         /// <summary>
@@ -87,6 +90,7 @@ namespace ProjectCoral
                 this.Exit();
 
             _butterfly.Update(gameTime);
+            _frog.Update(gameTime);
 
             // Camera logic here
             if (_currentKeyboardState.IsKeyDown(Keys.Up))
@@ -111,9 +115,10 @@ namespace ProjectCoral
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Coral);
 
             _butterfly.Draw(graphics, gameTime);
+            _frog.Draw(graphics, gameTime);
 
 
             base.Draw(gameTime);

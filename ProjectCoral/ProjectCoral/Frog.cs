@@ -6,11 +6,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-namespace Frog
+namespace ProjectCoral
 {
     public class Frog
     {
-        private Project1Game game;
+        private ProjectCoralGame game;
         private Model model;
         private int frontLeftLeg;
         private int frontRightLeg;
@@ -45,7 +45,7 @@ namespace Frog
 
 
 
-        public Frog(Project1Game game)
+        public Frog(ProjectCoralGame game)
         {
             this.game = game;
         }
