@@ -20,13 +20,17 @@ namespace ProjectCoral
         private int _rightWingIndex;
         private float _wingAngle = 0.0f;
 
+        private float distance = 0;
+        private float horizontal = 0;
+        public float Horizontal { get { return horizontal; } set { horizontal = value; } }
+
         private Vector3 _position = Vector3.Zero;
         public Vector3 Position {get { return _position; } set { _position = value; }}
 
         private float _speed = 0.0f;
         public float Speed {get { return _speed; }}
 
-        private float _maxSpeed = 10.0f;
+        private float _maxSpeed = 20f;
         public float MaxSpeed {get { return _maxSpeed; }}
 
         private Quaternion _orientation = Quaternion.Identity;
@@ -60,6 +64,8 @@ namespace ProjectCoral
         public void Update(GameTime gameTime)
         {
             _wingAngle = (float)Math.Sin(8 * gameTime.TotalGameTime.TotalSeconds) / 2.0f;
+
+            distance = MaxSpeed * (float)gameTime.TotalGameTime.TotalSeconds;
         }
 
         /// <summary>
@@ -69,8 +75,9 @@ namespace ProjectCoral
         /// <param name="gameTime"></param>
         public void Draw(GraphicsDeviceManager graphics, GameTime gameTime)
         {
-            Matrix transform = Matrix.CreateFromQuaternion(_orientation)
-                                 * Matrix.CreateTranslation(_position);
+            Matrix transform = Matrix.CreateTranslation(new Vector3(horizontal, 0, distance)) * Matrix.CreateRotationY((float)Math.PI);
+            //Matrix transform = Matrix.CreateFromQuaternion(_orientation)
+                                // * Matrix.CreateTranslation(_position);
 
             DrawModel(graphics, _model, transform);
         }

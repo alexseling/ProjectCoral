@@ -25,6 +25,7 @@ namespace ProjectCoral
         private Butterfly _butterfly;
         private Frog _frog;
         private Batty _bat;
+        private FootballField _field;
 
         private KeyboardState _currentKeyboardState;
         private KeyboardState _previousKeyboardState;
@@ -37,6 +38,7 @@ namespace ProjectCoral
             _frog = new Frog(this);
             _butterfly = new Butterfly(this);
             _bat = new Batty(this);
+            _field = new FootballField(this);
             _camera = new Camera(graphics);
         }
 
@@ -50,7 +52,7 @@ namespace ProjectCoral
         {
             Camera.Initialize();
             // Temporary!
-            Camera.Eye = new Vector3(0.0f, 10.0f, 25.0f);
+            Camera.Eye = new Vector3(0.0f, 5.0f, 25.0f);
             _previousKeyboardState = Keyboard.GetState();
 
             base.Initialize();
@@ -68,6 +70,7 @@ namespace ProjectCoral
             _butterfly.LoadContent(Content);
             _frog.LoadContent(Content);
             _bat.LoadContent(Content);
+            _field.LoadContent(Content);
         }
 
         /// <summary>
@@ -95,18 +98,23 @@ namespace ProjectCoral
             _butterfly.Update(gameTime);
             _frog.Update(gameTime);
             _bat.Update(gameTime);
+            _field.Update(gameTime);
 
             // Camera logic here
-            if (_currentKeyboardState.IsKeyDown(Keys.Up))
+            if (_currentKeyboardState.IsKeyDown(Keys.Right))
             {
-                Camera.Eye += new Vector3(0, 0, -1);
+                Camera.Eye += new Vector3(1, 0, 0);
+                Camera.Center += new Vector3(1, 0, 0);
+                _butterfly.Horizontal -= 1;
             }
-            else if (_currentKeyboardState.IsKeyDown(Keys.Down))
+            else if (_currentKeyboardState.IsKeyDown(Keys.Left))
             {
-                Camera.Eye += new Vector3(0, 0, 1);
+                Camera.Eye += new Vector3(-1, 0, 0);
+                Camera.Center += new Vector3(-1, 0, 0);
+                _butterfly.Horizontal += 1;
             }
 
-            Camera.Update(gameTime);
+            _camera.Update(gameTime);
 
             _previousKeyboardState = _currentKeyboardState;
 
@@ -122,8 +130,9 @@ namespace ProjectCoral
             GraphicsDevice.Clear(Color.Coral);
 
             _butterfly.Draw(graphics, gameTime);
-            _frog.Draw(graphics, gameTime);
-            _bat.Draw(graphics, gameTime);
+            //_frog.Draw(graphics, gameTime);
+            //_bat.Draw(graphics, gameTime);
+            _field.Draw(graphics, gameTime);
 
 
             base.Draw(gameTime);

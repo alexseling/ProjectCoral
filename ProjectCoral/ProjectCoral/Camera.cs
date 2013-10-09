@@ -43,6 +43,8 @@ namespace ProjectCoral
         public float Stiffness { get { return _stiffness; } set { _stiffness = value; } }
         public float Damping { get { return _damping; } set { _damping = value; } }
 
+        private float moveSpeed = -20f;
+
         public Camera(GraphicsDeviceManager graphics)
         {
             this.graphics = graphics;
@@ -58,7 +60,8 @@ namespace ProjectCoral
 
         public void Update(GameTime gameTime)
         {
-            
+            Eye += new Vector3(0, 0, moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            Center += new Vector3(0, 0, moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
         }
 
         private void ComputeView()

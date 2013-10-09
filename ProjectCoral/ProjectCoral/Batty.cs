@@ -82,7 +82,7 @@ namespace ProjectCoral
             
           
             offset = (float)Math.Sin(angle) * radius;
-            position.Y = offset;
+            position.Y = offset + 10;
             angle += 2 * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             leftWingBase.Transform = Matrix.CreateRotationY(wingAngle) * lwingBaseBind;
@@ -138,11 +138,8 @@ namespace ProjectCoral
                 {
                     effect.EnableDefaultLighting();
                     effect.World = transforms[mesh.ParentBone.Index] * world;
-                    effect.View = Matrix.CreateLookAt(new Vector3(50, 50, 50),
-                                                      new Vector3(0, 0, 0),
-                                                      new Vector3(0, 1, 0));
-                    effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(35), 
-                        game.GraphicsDevice.Viewport.AspectRatio, 10, 10000);
+                    effect.View = game.Camera.View;
+                    effect.Projection = game.Camera.Projection;
                 }
                 mesh.Draw();
             }

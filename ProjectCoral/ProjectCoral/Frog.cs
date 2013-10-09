@@ -158,11 +158,8 @@ namespace ProjectCoral
                 {
                     effect.EnableDefaultLighting();
                     effect.World = transforms[mesh.ParentBone.Index] * world;
-                    effect.View = Matrix.CreateLookAt(new Vector3(30, 30, 30),
-                                                      new Vector3(0, 0, 0),
-                                                      new Vector3(0, 1, 0));
-                    effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(35),
-                        graphics.GraphicsDevice.Viewport.AspectRatio, 10, 10000);
+                    effect.View = game.Camera.View;
+                    effect.Projection = game.Camera.Projection;
                 }
                 mesh.Draw();
             }
