@@ -22,6 +22,7 @@ namespace ProjectCoral
         private Camera _camera;
         public Camera Camera {get { return _camera; }}
 
+        private SpriteFont scoreFont;
         private Butterfly _butterfly;
         private Frog _frog;
         private Batty _bat;
@@ -71,6 +72,8 @@ namespace ProjectCoral
             _frog.LoadContent(Content);
             _bat.LoadContent(Content);
             _field.LoadContent(Content);
+
+            scoreFont = Content.Load<SpriteFont>("scorefont");
         }
 
         /// <summary>
@@ -136,6 +139,11 @@ namespace ProjectCoral
 
 
             base.Draw(gameTime);
+            string scoreString = String.Format("{0:f}", _butterfly.score);
+            spriteBatch.Begin();
+            spriteBatch.DrawString(scoreFont, scoreString, new Vector2(10, 10), Color.White);
+            spriteBatch.End();
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
         }
     }
 }

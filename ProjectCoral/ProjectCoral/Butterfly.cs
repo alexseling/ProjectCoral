@@ -20,6 +20,8 @@ namespace ProjectCoral
         private int _rightWingIndex;
         private float _wingAngle = 0.0f;
 
+        public float score = 1;
+
         private float distance = 0;
         private float horizontal = 0;
         public float Horizontal { get { return horizontal; } set { horizontal = value; } }
@@ -63,6 +65,9 @@ namespace ProjectCoral
 
         public void Update(GameTime gameTime)
         {
+            float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            score += delta;
+
             _wingAngle = (float)Math.Sin(8 * gameTime.TotalGameTime.TotalSeconds) / 2.0f;
 
             distance = MaxSpeed * (float)gameTime.TotalGameTime.TotalSeconds;
