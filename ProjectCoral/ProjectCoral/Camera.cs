@@ -37,13 +37,13 @@ namespace ProjectCoral
         public Matrix View { get { return _view; } }
         public Matrix Projection { get { return _projection; } }
 
-        private float _stiffness = 100;
+        /*private float _stiffness = 100;
         private float _damping = 60;
 
         public float Stiffness { get { return _stiffness; } set { _stiffness = value; } }
-        public float Damping { get { return _damping; } set { _damping = value; } }
+        public float Damping { get { return _damping; } set { _damping = value; } }*/
 
-        private float moveSpeed = -20f;
+        private float moveSpeed = -40f;
 
         public Camera(GraphicsDeviceManager graphics)
         {

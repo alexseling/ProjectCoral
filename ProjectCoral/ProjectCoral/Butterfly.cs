@@ -24,25 +24,25 @@ namespace ProjectCoral
         private float horizontal = 0;
         public float Horizontal { get { return horizontal; } set { horizontal = value; } }
 
-        private Vector3 _position = Vector3.Zero;
+        /*private Vector3 _position = Vector3.Zero;
         public Vector3 Position {get { return _position; } set { _position = value; }}
 
         private float _speed = 0.0f;
-        public float Speed {get { return _speed; }}
+        public float Speed {get { return _speed; }}*/
 
-        private float _maxSpeed = 20f;
+        private float _maxSpeed = 40f;
         public float MaxSpeed {get { return _maxSpeed; }}
 
         private Quaternion _orientation = Quaternion.Identity;
 
-        public Matrix Transform
+        /*public Matrix Transform
         {
             get
             {
                 return Matrix.CreateFromQuaternion(_orientation) 
                     * Matrix.CreateTranslation(_position);
             }
-        }
+        }*/
 
         public Butterfly(ProjectCoralGame game)
         {
