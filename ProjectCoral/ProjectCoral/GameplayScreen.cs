@@ -10,20 +10,20 @@ namespace ProjectCoral
 {
     public class GameplayScreen : GameScreen
     {
-        private Camera _camera;
-        public Camera Camera { get { return _camera; } }
-
         private SpriteFont scoreFont;
         private Butterfly _butterfly;
         private FootballField _field;
+
         private LinkedList<Batty> bats = new LinkedList<Batty>();
         private LinkedList<Frog> frogs = new LinkedList<Frog>();
 
         private Random _random = new Random();
+        
         private const float _maxZ = -100f;
         private const float _minZ = -450f;
         private const float _maxX = 120f;
         private const float _minX = -120f;
+
         private const int minNumCreatures = 25;
         private const int maxNumCreatures = 35;
 
@@ -39,13 +39,13 @@ namespace ProjectCoral
             
             _butterfly = new Butterfly(Game);
             _field = new FootballField(Game, _butterfly);
-            _camera = new Camera(Game.Graphics, _butterfly);
+            Game.SetCamera(new Camera(Game.Graphics, _butterfly));
 
         }
 
-        public virtual void Initialize()
+        public override void Initialize()
         {
-            Camera.Initialize();
+            Game.Camera.Initialize();
 
             _previousKeyboardState = Keyboard.GetState();
 
@@ -68,7 +68,7 @@ namespace ProjectCoral
             }
         }
 
-        public virtual void LoadContent()
+        public override void LoadContent()
         {
             _butterfly.LoadContent(Game.Content);
             foreach (Batty b in bats)
@@ -84,7 +84,7 @@ namespace ProjectCoral
             scoreFont = Game.Content.Load<SpriteFont>("scorefont");
         }
 
-        public virtual void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             _currentKeyboardState = Keyboard.GetState();
 
@@ -121,23 +121,25 @@ namespace ProjectCoral
             // Camera logic here
             if (_currentKeyboardState.IsKeyDown(Keys.Right) && _butterfly.Position.X >= _minX)
             {
-                Camera.Eye += new Vector3(horizontalMoveSpeed, 0, 0);
-                Camera.Center += new Vector3(horizontalMoveSpeed, 0, 0);
+                Game.Camera.Eye += new Vector3(horizontalMoveSpeed, 0, 0);
+                Game.Camera.Center += new Vector3(horizontalMoveSpeed, 0, 0);
                 _butterfly.Position -= new Vector3(horizontalMoveSpeed, 0, 0);
             }
             else if (_currentKeyboardState.IsKeyDown(Keys.Left) && _butterfly.Position.X <= _maxX)
             {
-                Camera.Eye -= new Vector3(horizontalMoveSpeed, 0, 0);
-                Camera.Center -= new Vector3(horizontalMoveSpeed, 0, 0);
+                Game.Camera.Eye -= new Vector3(horizontalMoveSpeed, 0, 0);
+                Game.Camera.Center -= new Vector3(horizontalMoveSpeed, 0, 0);
                 _butterfly.Position += new Vector3(horizontalMoveSpeed, 0, 0);
             }
 
-            _camera.Update(gameTime);
+            Game.Camera.Update(gameTime);
 
             _previousKeyboardState = _currentKeyboardState;
+
+            base.Update(gameTime);
         }
 
-        public virtual void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             _butterfly.Draw(Game.Graphics, gameTime);
             foreach (Batty b in bats)
@@ -150,19 +152,21 @@ namespace ProjectCoral
             }
             _field.Draw(Game.Graphics, gameTime);
         }
-
-        public virtual void DrawSprites(GameTime gameTime, SpriteBatch spriteBatch)
+        
+        public override void DrawSprites(GameTime gameTime, SpriteBatch spriteBatch)
         {
             string scoreString = String.Format("{0:f}", _butterfly.score);
             spriteBatch.DrawString(scoreFont, scoreString, new Vector2(10, 10), Color.White);
         }
 
-        public virtual void Activate()
+        public override void Activate()
         {
-            
+            _previousKeyboardState = Keyboard.GetState();
+
+            base.Activate();
         }
 
-        public virtual void Deactivate()
+        public override void Deactivate()
         {
             
         }

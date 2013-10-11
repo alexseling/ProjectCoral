@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,6 +12,8 @@ namespace ProjectCoral
     public class SplashScreen : GameScreen
     {
         private double _time = 0.0f;
+
+        private Texture2D _splashScreenTexture;
 
         private KeyboardState _currentKeyboardState;
 
@@ -26,6 +29,8 @@ namespace ProjectCoral
 
         public override void LoadContent()
         {
+            _splashScreenTexture = Game.Content.Load<Texture2D>("SplashScreen_Awesome");
+
             base.LoadContent();
         }
 
@@ -45,6 +50,8 @@ namespace ProjectCoral
 
         public override void Activate()
         {
+            _time = 0.0;
+
             base.Activate();
         }
 
@@ -60,6 +67,8 @@ namespace ProjectCoral
 
         public override void DrawSprites(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(_splashScreenTexture, new Vector2(0, 0), Color.Transparent);
+
             base.DrawSprites(gameTime, spriteBatch);
         }
     }

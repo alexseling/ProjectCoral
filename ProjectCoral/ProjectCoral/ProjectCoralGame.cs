@@ -21,6 +21,9 @@ namespace ProjectCoral
         
         SpriteBatch spriteBatch;
 
+        private Camera _camera;
+        public Camera Camera { get { return _camera; } }
+
         public enum GameScreens
         {
             Splash,
@@ -29,7 +32,7 @@ namespace ProjectCoral
             ScoreScreen
         }
 
-        private GameScreens _currentScreenState;
+        private GameScreens _currentScreenState = GameScreens.Splash;
         public GameScreens CurrentScreenState {get { return _currentScreenState; }}
 
         private SplashScreen _splashScreen;
@@ -79,6 +82,8 @@ namespace ProjectCoral
             _gameplayScreen.Initialize();
             _scoreScreen.Initialize();
 
+            _currentGameScreen = _splashScreen;
+
             base.Initialize();
         }
 
@@ -94,6 +99,11 @@ namespace ProjectCoral
             audioEngine = new AudioEngine("Content\\ProjectCoralAudio.xgs");
             waveBank = new WaveBank(audioEngine, "Content\\Wave Bank.xwb");
             soundBank = new SoundBank(audioEngine, "Content\\Sound Bank.xsb");
+
+            _splashScreen.LoadContent();
+            _menuGameScreen.LoadContent();
+            _gameplayScreen.LoadContent();
+            _scoreScreen.LoadContent();
         }
 
         /// <summary>
@@ -162,5 +172,10 @@ namespace ProjectCoral
             _currentGameScreen.Activate();
         }
 
+
+        public void SetCamera(Camera camera)
+        {
+            this._camera = camera;
+        }
     }
 }
