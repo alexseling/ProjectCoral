@@ -12,10 +12,12 @@ namespace ProjectCoral
     {
         private ProjectCoralGame game;
         private Model model;
+        private Butterfly butterfly;
 
-        public FootballField(ProjectCoralGame game)
+        public FootballField(ProjectCoralGame game, Butterfly b)
         {
             this.game = game;
+            butterfly = b;
         }
 
         /// <summary>
@@ -62,6 +64,10 @@ namespace ProjectCoral
                     effect.World = transforms[mesh.ParentBone.Index] * world;
                     effect.View = game.Camera.View;
                     effect.Projection = game.Camera.Projection;
+                    effect.FogEnabled = true;
+                    effect.FogColor = Color.Black.ToVector3();
+                    effect.FogStart = butterfly.Position.Z;
+                    effect.FogEnd = butterfly.Position.Z + 100;
                 }
                 mesh.Draw();
             }

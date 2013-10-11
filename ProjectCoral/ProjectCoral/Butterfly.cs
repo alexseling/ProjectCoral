@@ -121,6 +121,7 @@ namespace ProjectCoral
                     effect.World = transforms[mesh.ParentBone.Index] * world;
                     effect.View = _game.Camera.View;
                     effect.Projection = _game.Camera.Projection;
+                    effect.LightingEnabled = true;
                 }
                 mesh.Draw();
             }

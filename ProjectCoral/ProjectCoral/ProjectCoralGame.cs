@@ -33,8 +33,8 @@ namespace ProjectCoral
         private const float _minZ = -450f;
         private const float _maxX = 120f;
         private const float _minX = -120f;
-        private const int minNumCreatures = 10;
-        private const int maxNumCreatures = 20;
+        private const int minNumCreatures = 25;
+        private const int maxNumCreatures = 35;
 
         private const float horizontalMoveSpeed = 1f;
 
@@ -65,7 +65,7 @@ namespace ProjectCoral
             Content.RootDirectory = "Content";
 
             _butterfly = new Butterfly(this);
-            _field = new FootballField(this);
+            _field = new FootballField(this, _butterfly);
             _camera = new Camera(graphics, _butterfly);
         }
 

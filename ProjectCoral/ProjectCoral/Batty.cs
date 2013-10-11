@@ -72,6 +72,7 @@ namespace ProjectCoral
                 flap = false;
             }
             
+
           
             offset = (float)Math.Sin(angle) * radius;
             position.Y = offset + 10;
