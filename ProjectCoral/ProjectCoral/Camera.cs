@@ -61,9 +61,11 @@ namespace ProjectCoral
         {
             if (_butterfly.Moving)
             {
-                Eye += new Vector3(0, 0, -_butterfly.MaxSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
-                Center += new Vector3(0, 0, -_butterfly.MaxSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                Eye += new Vector3(0, 0, -_butterfly.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                Center += new Vector3(0, 0, -_butterfly.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
             }
+            System.Diagnostics.Trace.WriteLine("Camera: " + Eye.Z);
+            System.Diagnostics.Trace.WriteLine("Difference: " + (_butterfly.Position.Z + Eye.Z));
         }
 
         private void ComputeView()

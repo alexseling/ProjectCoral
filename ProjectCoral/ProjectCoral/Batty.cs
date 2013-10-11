@@ -102,6 +102,24 @@ namespace ProjectCoral
             rwingBaseBind = rightWingBase.Transform;
         }
 
+
+        public bool TestForCollision(Vector3 testPosition)
+        {
+            BoundingSphere bs = model.Meshes[0].BoundingSphere;
+            bs = bs.Transform(model.Bones[0].Transform);
+
+            bs.Radius *= 3f;
+            bs.Center += position;
+
+            if ((testPosition - bs.Center).LengthSquared() < bs.Radius * bs.Radius)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
         /// <summary>
         /// This function is called to draw this game component.
         /// </summary>
