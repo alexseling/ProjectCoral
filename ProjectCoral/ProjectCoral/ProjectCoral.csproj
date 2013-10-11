@@ -112,9 +112,14 @@
     <Compile Include="Camera.cs" />
     <Compile Include="FootballField.cs" />
     <Compile Include="Frog.cs" />
+    <Compile Include="GameplayScreen.cs" />
+    <Compile Include="GameScreen.cs" />
+    <Compile Include="MenuGameScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectCoralGame.cs" />
+    <Compile Include="ScoreScreen.cs" />
+    <Compile Include="SplashScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

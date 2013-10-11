@@ -28,6 +28,8 @@ namespace ProjectCoral
         private float maxHeadAngle = .1f;
         private float minHeadAngle = 0;
 
+        private const float size = 1.5f;
+
         private const float jumpWaitTime = .6f;
         private float jumpTimer = jumpWaitTime;
         public float JumpTimer { get { return jumpTimer; } set { jumpTimer = value; } }
@@ -66,7 +68,7 @@ namespace ProjectCoral
             BoundingSphere bs = model.Meshes[0].BoundingSphere;
             bs = bs.Transform(model.Bones[0].Transform);
 
-            bs.Radius *= 1.5f;
+            bs.Radius *= size;
             bs.Center += position;
 
             if ((testPosition - bs.Center).LengthSquared() < bs.Radius * bs.Radius)
