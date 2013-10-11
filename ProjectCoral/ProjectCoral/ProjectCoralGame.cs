@@ -50,13 +50,15 @@ namespace ProjectCoral
             ScoreScreen
         }
 
-        private GameScreens _currentGameScreen;
-        public GameScreens CurrentGameScreen {get { return _currentGameScreen; }}
+        private GameScreens _currentScreenState;
+        public GameScreens CurrentScreenState {get { return _currentScreenState; }}
 
         private SplashScreen _splashScreen;
         private MenuGameScreen _menuGameScreen;
         private GameplayScreen _gameplayScreen;
         private ScoreScreen _scoreScreen;
+
+        private GameScreen _currentGameScreen;
 
         /// <summary>
         /// A reference to the audio engine we use
@@ -255,5 +257,17 @@ namespace ProjectCoral
             spriteBatch.End();
             GraphicsDevice.DepthStencilState = DepthStencilState.Default;
         }
+
+        private void SetScreen(GameScreens screen)
+        {
+            _currentGameScreen.Deactivate();
+
+            switch (screen)
+            {
+                case GameScreens.Splash:
+                    _currentGameScreen.
+            }
+        }
+
     }
 }
