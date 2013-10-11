@@ -22,29 +22,15 @@ namespace ProjectCoral
 
         public float score = 1;
 
-        private float distance = 0;
-        private float horizontal = 0;
-        public float Horizontal { get { return horizontal; } set { horizontal = value; } }
-
-        /*private Vector3 _position = Vector3.Zero;
-        public Vector3 Position {get { return _position; } set { _position = value; }}
-
-        private float _speed = 0.0f;
-        public float Speed {get { return _speed; }}*/
-
-        private float _maxSpeed = 40f;
+        private const float _maxSpeed = 40f;
         public float MaxSpeed {get { return _maxSpeed; }}
+        private const float _maxDistance = 500f;
+        private bool _moving = true;
+        public bool Moving { get { return _moving; } }
 
         private Quaternion _orientation = Quaternion.Identity;
-
-        /*public Matrix Transform
-        {
-            get
-            {
-                return Matrix.CreateFromQuaternion(_orientation) 
-                    * Matrix.CreateTranslation(_position);
-            }
-        }*/
+        private Vector3 _position = new Vector3(0, 0, 0);
+        public Vector3 Position { get { return _position; } set { _position = value; } }
 
         public Butterfly(ProjectCoralGame game)
         {
@@ -66,11 +52,17 @@ namespace ProjectCoral
         public void Update(GameTime gameTime)
         {
             float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            score += delta;
 
             _wingAngle = (float)Math.Sin(8 * gameTime.TotalGameTime.TotalSeconds) / 2.0f;
 
-            distance = MaxSpeed * (float)gameTime.TotalGameTime.TotalSeconds;
+            if (_moving)
+            {
+                score += delta;
+                _position.Z = MaxSpeed * (float)gameTime.TotalGameTime.TotalSeconds;
+
+                if (_position.Z >= _maxDistance)
+                    _moving = false;
+            }
         }
 
         /// <summary>
@@ -80,9 +72,7 @@ namespace ProjectCoral
         /// <param name="gameTime"></param>
         public void Draw(GraphicsDeviceManager graphics, GameTime gameTime)
         {
-            Matrix transform = Matrix.CreateTranslation(new Vector3(horizontal, 0, distance)) * Matrix.CreateRotationY((float)Math.PI);
-            //Matrix transform = Matrix.CreateFromQuaternion(_orientation)
-                                // * Matrix.CreateTranslation(_position);
+            Matrix transform = Matrix.CreateTranslation(_position) * Matrix.CreateRotationY((float)Math.PI);
 
             DrawModel(graphics, _model, transform);
         }

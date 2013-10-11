@@ -22,18 +22,14 @@ namespace ProjectCoral
         private float rate = 0.25f;
         private float offset;
 
-        private Vector3 center = new Vector3(0, 1, 0);
-        //float offset = 0; //The offset to add to your Y
         float radius = 5; //Whatever you want your radius to be
         /// <summary>
-        /// Current ship position
+        /// Current position
         /// </summary>
         private Vector3 position = new Vector3(0, 0, 0);
+        public Vector3 Position { get { return position; } set { position = value; } }
        
-        /// <summary>
-        /// Rate we move the ship per second (as a vector)
-        /// </summary>
-        private Vector3 moveSpeed = new Vector3(1, 0, -1);
+        //private Vector3 moveSpeed = new Vector3(1, 0, -1);
 
         //public Model Model { get { return model; } }
         private int head;
@@ -57,7 +53,6 @@ namespace ProjectCoral
         public void Update(GameTime gameTime)
         {
             float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //float wingDeployTime = 2.0f;        // Seconds
 
             if (wingAngle >= -1f && flap == false)
             {
@@ -116,7 +111,7 @@ namespace ProjectCoral
         {
             Matrix move = Matrix.CreateTranslation(position);
 
-            DrawModel(model, Matrix.Identity * move);
+            DrawModel(model, move);
         }
 
         private void DrawModel(Model model, Matrix world)

@@ -10,10 +10,12 @@ namespace ProjectCoral
     {
         private GraphicsDeviceManager graphics;
 
+        private Butterfly _butterfly;
+
         /// <summary>
         /// The eye position in space
         /// </summary>
-        private Vector3 _eye = new Vector3(0, 0, 1000);
+        private Vector3 _eye = new Vector3(0.0f, 8.0f, 50.0f);
         public Vector3 Eye {get { return _eye; } set { _eye = value; ComputeView(); } }
 
         /// <summary>
@@ -43,25 +45,25 @@ namespace ProjectCoral
         public float Stiffness { get { return _stiffness; } set { _stiffness = value; } }
         public float Damping { get { return _damping; } set { _damping = value; } }*/
 
-        private float moveSpeed = -40f;
-
-        public Camera(GraphicsDeviceManager graphics)
+        public Camera(GraphicsDeviceManager graphics, Butterfly butterfly)
         {
             this.graphics = graphics;
+            _butterfly = butterfly;
         }
 
         public void Initialize()
         {
             ComputeView();
             ComputeProjection();
-
-
         }
 
         public void Update(GameTime gameTime)
         {
-            Eye += new Vector3(0, 0, moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
-            Center += new Vector3(0, 0, moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            if (_butterfly.Moving)
+            {
+                Eye += new Vector3(0, 0, -_butterfly.MaxSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                Center += new Vector3(0, 0, -_butterfly.MaxSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            }
         }
 
         private void ComputeView()

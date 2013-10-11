@@ -24,9 +24,20 @@ namespace ProjectCoral
 
         private SpriteFont scoreFont;
         private Butterfly _butterfly;
-        private Frog _frog;
-        private Batty _bat;
         private FootballField _field;
+        private LinkedList<Batty> bats = new LinkedList<Batty>();
+        private LinkedList<Frog> frogs = new LinkedList<Frog>();
+
+        private Random _random = new Random();
+        private const float _maxZ = -100f;
+        private const float _minZ = -450f;
+        private const float _maxX = 120f;
+        private const float _minX = -120f;
+        private const int minNumCreatures = 10;
+        private const int maxNumCreatures = 20;
+
+        private const float horizontalMoveSpeed = 1f;
+
 
         private KeyboardState _currentKeyboardState;
         private KeyboardState _previousKeyboardState;
@@ -36,11 +47,9 @@ namespace ProjectCoral
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            _frog = new Frog(this);
             _butterfly = new Butterfly(this);
-            _bat = new Batty(this);
             _field = new FootballField(this);
-            _camera = new Camera(graphics);
+            _camera = new Camera(graphics, _butterfly);
         }
 
         /// <summary>
@@ -52,9 +61,26 @@ namespace ProjectCoral
         protected override void Initialize()
         {
             Camera.Initialize();
-            // Temporary!
-            Camera.Eye = new Vector3(0.0f, 5.0f, 25.0f);
+
             _previousKeyboardState = Keyboard.GetState();
+
+            int numFrogs = _random.Next(minNumCreatures, maxNumCreatures);
+            int numBats = _random.Next(minNumCreatures, maxNumCreatures);
+
+            for (int i = 0; i < numBats; i++)
+            {
+                Batty b = new Batty(this);
+                b.Position = new Vector3((float)(_minX + (_random.NextDouble() * (_maxX - _minX))), 0, _minZ + (float)((_random.NextDouble() * (_maxZ - _minZ))));
+                bats.AddLast(b);
+            }
+
+            for (int i = 0; i < numFrogs; i++)
+            {
+                Frog f = new Frog(this);
+                f.Position = new Vector3((float)(_minX + (_random.NextDouble() * (_maxX - _minX))), 0, _minZ + (float)((_random.NextDouble() * (_maxZ - _minZ))));
+                f.JumpTimer = (float)_random.NextDouble() * 2;
+                frogs.AddLast(f);
+            }
 
             base.Initialize();
         }
@@ -69,8 +95,14 @@ namespace ProjectCoral
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _butterfly.LoadContent(Content);
-            _frog.LoadContent(Content);
-            _bat.LoadContent(Content);
+            foreach (Batty b in bats)
+            {
+                b.LoadContent(Content);
+            }
+            foreach (Frog f in frogs)
+            {
+                f.LoadContent(Content);
+            }
             _field.LoadContent(Content);
 
             scoreFont = Content.Load<SpriteFont>("scorefont");
@@ -99,22 +131,29 @@ namespace ProjectCoral
                 this.Exit();
 
             _butterfly.Update(gameTime);
-            _frog.Update(gameTime);
-            _bat.Update(gameTime);
+
+            foreach (Batty b in bats)
+            {
+                b.Update(gameTime);
+            }
+            foreach (Frog f in frogs)
+            {
+                f.Update(gameTime);
+            }
             _field.Update(gameTime);
 
             // Camera logic here
-            if (_currentKeyboardState.IsKeyDown(Keys.Right))
+            if (_currentKeyboardState.IsKeyDown(Keys.Right) && _butterfly.Position.X >= _minX)
             {
-                Camera.Eye += new Vector3(1, 0, 0);
-                Camera.Center += new Vector3(1, 0, 0);
-                _butterfly.Horizontal -= 1;
+                Camera.Eye += new Vector3(horizontalMoveSpeed, 0, 0);
+                Camera.Center += new Vector3(horizontalMoveSpeed, 0, 0);
+                _butterfly.Position -= new Vector3(horizontalMoveSpeed, 0, 0);
             }
-            else if (_currentKeyboardState.IsKeyDown(Keys.Left))
+            else if (_currentKeyboardState.IsKeyDown(Keys.Left) && _butterfly.Position.X <= _maxX)
             {
-                Camera.Eye += new Vector3(-1, 0, 0);
-                Camera.Center += new Vector3(-1, 0, 0);
-                _butterfly.Horizontal += 1;
+                Camera.Eye -= new Vector3(horizontalMoveSpeed, 0, 0);
+                Camera.Center -= new Vector3(horizontalMoveSpeed, 0, 0);
+                _butterfly.Position += new Vector3(horizontalMoveSpeed, 0, 0);
             }
 
             _camera.Update(gameTime);
@@ -133,8 +172,14 @@ namespace ProjectCoral
             GraphicsDevice.Clear(Color.Coral);
 
             _butterfly.Draw(graphics, gameTime);
-            //_frog.Draw(graphics, gameTime);
-            //_bat.Draw(graphics, gameTime);
+            foreach (Batty b in bats)
+            {
+                b.Draw(graphics, gameTime);
+            }
+            foreach (Frog f in frogs)
+            {
+                f.Draw(graphics, gameTime);
+            }
             _field.Draw(graphics, gameTime);
 
 

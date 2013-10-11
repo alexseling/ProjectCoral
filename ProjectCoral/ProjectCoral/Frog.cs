@@ -28,22 +28,18 @@ namespace ProjectCoral
         private float maxHeadAngle = .1f;
         private float minHeadAngle = 0;
 
-        private bool increasingAngle = true;
-
-        private const float jumpWaitTime = 1f;
+        private const float jumpWaitTime = .6f;
         private float jumpTimer = jumpWaitTime;
-        bool waiting = false;
+        public float JumpTimer { get { return jumpTimer; } set { jumpTimer = value; } }
+        bool waiting = true;
 
-        private float elevation = 0;
-        private float elevationRate = 5f;
-        private float maxElevation = 2f;
-        private float minElevation = 0f;
+        private const float acceleration = 25f;
+        private const float upVelocity = 15;
+        private float time = 0;
+        private float oldPosition = 0;
 
-        private float movement = 0;
-        private float movementRate = 3f;
-
-
-
+        private Vector3 position;
+        public Vector3 Position { get { return position; } set { position = value; } }
 
         public Frog(ProjectCoralGame game)
         {
@@ -72,6 +68,7 @@ namespace ProjectCoral
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
+            // Wait for jumpTimer after jumping
             if (waiting)
             {
                 jumpTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -84,15 +81,14 @@ namespace ProjectCoral
 
             if (!waiting)
             {
-                if (increasingAngle)
+                time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                // Set the legs and head
+                if (position.Y >= oldPosition)
                 {
                     if (legAngle <= maxLegAngle)
                     {
                         legAngle += (float)gameTime.ElapsedGameTime.TotalSeconds * legAngleRate;
-                    }
-                    if (elevation <= maxElevation)
-                    {
-                        elevation += (float)gameTime.ElapsedGameTime.TotalSeconds * elevationRate;
                     }
                     if (headAngle <= maxHeadAngle)
                     {
@@ -105,26 +101,21 @@ namespace ProjectCoral
                     {
                         legAngle -= (float)gameTime.ElapsedGameTime.TotalSeconds * legAngleRate;
                     }
-                    if (elevation >= minElevation)
-                    {
-                        elevation -= (float)gameTime.ElapsedGameTime.TotalSeconds * elevationRate;
-                    }
                     if (headAngle >= minHeadAngle)
                     {
                         headAngle -= (float)gameTime.ElapsedGameTime.TotalSeconds * headAngleRate;
                     }
                 }
-                movement += movementRate * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+                // Set the vertical position
+                oldPosition = position.Y;
+                position.Y = upVelocity * time + .5f * -acceleration * time * time;
+                position.Y = position.Y < 0 ? 0 : position.Y;
             }
 
-            if (legAngle > maxLegAngle && elevation > maxElevation)
+            if (position.Y == 0)
             {
-                increasingAngle = false;
-            }
-            else if (legAngle < minLegAngle && elevation < minElevation)
-            {
-                increasingAngle = true;
+                time = 0;
                 waiting = true;
             }
 
@@ -137,7 +128,7 @@ namespace ProjectCoral
         /// <param name="gameTime"></param>
         public void Draw(GraphicsDeviceManager graphics, GameTime gameTime)
         {
-            Matrix transform = Matrix.CreateTranslation(new Vector3(0, elevation, 0));
+            Matrix transform = Matrix.CreateTranslation(position);
             DrawModel(graphics, model, transform);
         }
 
