@@ -187,7 +187,7 @@ namespace ProjectCoral
 
                 if (b.TestForCollision(-1 * _butterfly.Position))
                 {
-                    SoundBank.PlayCue("explosion3");
+                    SoundBank.PlayCue("batchirp");
                     _butterfly.SlowDown(false);
                     System.Diagnostics.Trace.WriteLine("BAT");
                 }
@@ -198,7 +198,7 @@ namespace ProjectCoral
 
                 if (f.TestForCollision(-1*_butterfly.Position))
                 {
-                    SoundBank.PlayCue("explosion3");
+                    SoundBank.PlayCue("frog");
                     _butterfly.SlowDown(true);
                     System.Diagnostics.Trace.WriteLine("FROG5");
                 }
