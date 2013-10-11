@@ -14,7 +14,7 @@ namespace ProjectCoral
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class ProjectCoralGame : Microsoft.Xna.Framework.Game
+    public class ProjectCoralGame : Microsoft.Xna.Framework.Game        
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
