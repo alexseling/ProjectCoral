@@ -29,14 +29,11 @@ namespace ProjectCoral
         private Vector3 position = new Vector3(0, 0, 0);
         public Vector3 Position { get { return position; } set { position = value; } }
        
-        //private Vector3 moveSpeed = new Vector3(1, 0, -1);
-
-        //public Model Model { get { return model; } }
         private int head;
-        private int LeftWing1;          // Index to the wing 1 bone
-        private int LeftWing2;          // Index to the wing 2 bone
-        private int RightWing1;          // Index to the wing 1 bone
-        private int RightWing2;          // Index to the wing 2 bone
+        //private int LeftWing1;          // Index to the wing 1 bone
+        private int LeftWing2 = 0;          // Index to the wing 2 bone
+        //private int RightWing1;          // Index to the wing 1 bone
+        private int RightWing2 = 0;          // Index to the wing 2 bone
         private float wingAngle = -1; // Current wing deployment angle
         Boolean flap = false;
         
@@ -120,9 +117,6 @@ namespace ProjectCoral
             model.CopyAbsoluteBoneTransformsTo(transforms);
 
             transforms[head] = Matrix.CreateRotationZ(wingAngle) * transforms[head];
-
-            //transforms[LeftWing1] = Matrix.CreateRotationY(wingAngle1) * transforms[LeftWing1];
-            //transforms[RightWing1] = Matrix.CreateRotationY(-wingAngle1) * transforms[RightWing1];
 
             transforms[LeftWing2] = Matrix.CreateRotationY(wingAngle) * transforms[LeftWing2];
             transforms[RightWing2] = Matrix.CreateRotationY(-wingAngle) * transforms[RightWing2];

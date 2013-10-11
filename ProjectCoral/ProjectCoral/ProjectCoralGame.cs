@@ -42,6 +42,23 @@ namespace ProjectCoral
         private KeyboardState _currentKeyboardState;
         private KeyboardState _previousKeyboardState;
 
+        /// <summary>
+        /// A reference to the audio engine we use
+        /// </summary>
+        AudioEngine audioEngine;
+
+        /// <summary>
+        /// The loaded audio wave bank
+        /// </summary>
+        WaveBank waveBank;
+
+        /// <summary>
+        /// The loaded audio sound bank
+        /// </summary>
+        SoundBank soundBank;
+
+        public SoundBank SoundBank { get { return soundBank; } }
+
         public ProjectCoralGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -105,6 +122,10 @@ namespace ProjectCoral
             }
             _field.LoadContent(Content);
 
+            audioEngine = new AudioEngine("Content\\ProjectCoralAudio.xgs");
+            waveBank = new WaveBank(audioEngine, "Content\\Wave Bank.xwb");
+            soundBank = new SoundBank(audioEngine, "Content\\Sound Bank.xsb");
+
             scoreFont = Content.Load<SpriteFont>("scorefont");
         }
 
@@ -159,6 +180,9 @@ namespace ProjectCoral
             _camera.Update(gameTime);
 
             _previousKeyboardState = _currentKeyboardState;
+
+            // Update audioEngine.
+            audioEngine.Update();
 
             base.Update(gameTime);
         }

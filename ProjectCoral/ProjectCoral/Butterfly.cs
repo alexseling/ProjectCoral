@@ -20,7 +20,7 @@ namespace ProjectCoral
         private int _rightWingIndex;
         private float _wingAngle = 0.0f;
 
-        public float score = 1;
+        public float score = 0;
 
         private const float _maxSpeed = 40f;
         public float MaxSpeed {get { return _maxSpeed; }}
