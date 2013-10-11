@@ -112,59 +112,7 @@ namespace ProjectCoral
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-<<<<<<< HEAD
             _currentGameScreen.Update(gameTime);
-=======
-            _currentKeyboardState = Keyboard.GetState();
-
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
-            _butterfly.Update(gameTime);
-
-            foreach (Batty b in bats)
-            {
-                b.Update(gameTime);
-
-                if (b.TestForCollision(-1 * _butterfly.Position))
-                {
-                    SoundBank.PlayCue("batchirp");
-                    _butterfly.SlowDown(false);
-                    System.Diagnostics.Trace.WriteLine("BAT");
-                }
-            }
-            foreach (Frog f in frogs)
-            {
-                f.Update(gameTime);
-
-                if (f.TestForCollision(-1*_butterfly.Position))
-                {
-                    SoundBank.PlayCue("frog");
-                    _butterfly.SlowDown(true);
-                    System.Diagnostics.Trace.WriteLine("FROG5");
-                }
-            }
-            _field.Update(gameTime);
-
-            // Camera logic here
-            if (_currentKeyboardState.IsKeyDown(Keys.Right) && _butterfly.Position.X >= _minX)
-            {
-                Camera.Eye += new Vector3(horizontalMoveSpeed, 0, 0);
-                Camera.Center += new Vector3(horizontalMoveSpeed, 0, 0);
-                _butterfly.Position -= new Vector3(horizontalMoveSpeed, 0, 0);
-            }
-            else if (_currentKeyboardState.IsKeyDown(Keys.Left) && _butterfly.Position.X <= _maxX)
-            {
-                Camera.Eye -= new Vector3(horizontalMoveSpeed, 0, 0);
-                Camera.Center -= new Vector3(horizontalMoveSpeed, 0, 0);
-                _butterfly.Position += new Vector3(horizontalMoveSpeed, 0, 0);
-            }
-
-            _camera.Update(gameTime);
-
-            _previousKeyboardState = _currentKeyboardState;
->>>>>>> c6d932d489f57f60af055cf51fdbd6acd9b9a585
 
             // Update audioEngine.
             audioEngine.Update();
