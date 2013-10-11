@@ -25,7 +25,7 @@ namespace ProjectCoral
         public virtual void Deactivate() {}
         public virtual void Update(GameTime gameTime) {}
         public virtual void Draw(GameTime gameTime) {}
-        public virtual void DrawModel(GameTime gameTime, SpriteBatch spriteBatch) {}
+        public virtual void DrawSprites(GameTime gameTime, SpriteBatch spriteBatch) {}
 
     }
 }

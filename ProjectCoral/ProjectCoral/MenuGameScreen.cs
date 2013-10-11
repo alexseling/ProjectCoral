@@ -45,9 +45,9 @@ namespace ProjectCoral
             base.Draw(gameTime);
         }
 
-        public override void DrawModel(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void DrawSprites(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            base.DrawModel(gameTime, spriteBatch);
+            base.DrawSprites(gameTime, spriteBatch);
         }
     }
 }

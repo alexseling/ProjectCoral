@@ -4,11 +4,16 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace ProjectCoral
 {
     public class SplashScreen : GameScreen
     {
+        private double _time = 0.0f;
+
+        private KeyboardState _currentKeyboardState;
+
         public SplashScreen(ProjectCoralGame game) : base(game)
         {
             this._game = game;
@@ -26,6 +31,15 @@ namespace ProjectCoral
 
         public override void Update(GameTime gameTime)
         {
+            _currentKeyboardState = Keyboard.GetState();
+
+            _time += gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (_time > 5 || _currentKeyboardState.IsKeyDown(Keys.Enter))
+            {
+                Game.SetScreen(ProjectCoralGame.GameScreens.Game);
+            }
+
             base.Update(gameTime);
         }
 
@@ -44,9 +58,9 @@ namespace ProjectCoral
             base.Draw(gameTime);
         }
 
-        public override void DrawModel(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void DrawSprites(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            base.DrawModel(gameTime, spriteBatch);
+            base.DrawSprites(gameTime, spriteBatch);
         }
     }
 }
