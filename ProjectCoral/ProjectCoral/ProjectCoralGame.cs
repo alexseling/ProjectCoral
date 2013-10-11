@@ -42,6 +42,22 @@ namespace ProjectCoral
         private KeyboardState _currentKeyboardState;
         private KeyboardState _previousKeyboardState;
 
+        public enum GameScreens
+        {
+            Splash,
+            Menu,
+            Game,
+            ScoreScreen
+        }
+
+        private GameScreens _currentGameScreen;
+        public GameScreens CurrentGameScreen {get { return _currentGameScreen; }}
+
+        private SplashScreen _splashScreen;
+        private MenuGameScreen _menuGameScreen;
+        private GameplayScreen _gameplayScreen;
+        private ScoreScreen _scoreScreen;
+
         /// <summary>
         /// A reference to the audio engine we use
         /// </summary>
@@ -67,6 +83,11 @@ namespace ProjectCoral
             _butterfly = new Butterfly(this);
             _field = new FootballField(this, _butterfly);
             _camera = new Camera(graphics, _butterfly);
+
+            _splashScreen = new SplashScreen(this);
+            _menuGameScreen = new MenuGameScreen(this);
+            _gameplayScreen = new GameplayScreen(this);
+            _scoreScreen = new ScoreScreen(this);
         }
 
         /// <summary>
@@ -98,6 +119,11 @@ namespace ProjectCoral
                 f.JumpTimer = (float)_random.NextDouble() * 2;
                 frogs.AddLast(f);
             }
+
+            _splashScreen.Initialize();
+            _menuGameScreen.Initialize();
+            _gameplayScreen.Initialize();
+            _scoreScreen.Initialize();
 
             base.Initialize();
         }
