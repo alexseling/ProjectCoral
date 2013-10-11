@@ -156,10 +156,22 @@ namespace ProjectCoral
             foreach (Batty b in bats)
             {
                 b.Update(gameTime);
+
+                if (b.TestForCollision(-1 * _butterfly.Position))
+                {
+                    _butterfly.SlowDown(false);
+                    System.Diagnostics.Trace.WriteLine("BAT");
+                }
             }
             foreach (Frog f in frogs)
             {
                 f.Update(gameTime);
+
+                if (f.TestForCollision(-1*_butterfly.Position))
+                {
+                    _butterfly.SlowDown(true);
+                    System.Diagnostics.Trace.WriteLine("FROG5");
+                }
             }
             _field.Update(gameTime);
 
@@ -186,6 +198,7 @@ namespace ProjectCoral
 
             base.Update(gameTime);
         }
+
 
         /// <summary>
         /// This is called when the game should draw itself.

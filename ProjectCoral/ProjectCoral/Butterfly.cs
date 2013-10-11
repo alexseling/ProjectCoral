@@ -22,11 +22,16 @@ namespace ProjectCoral
 
         public float score = 0;
 
-        private const float _maxSpeed = 40f;
-        public float MaxSpeed {get { return _maxSpeed; }}
+        private const float _maxSpeed = 50f;
+        private float _speed = _maxSpeed;
+        public float Speed {get { return _speed; }}
         private const float _maxDistance = 500f;
         private bool _moving = true;
-        public bool Moving { get { return _moving; } }
+        public bool Moving { get { return _moving; } set { _moving = value; } }
+
+        private const float _maxSlowDownTime = 2f;
+        private float _slowDownTime = 0;
+        private bool _isSlow = false;
 
         private Quaternion _orientation = Quaternion.Identity;
         private Vector3 _position = new Vector3(0, 0, 0);
@@ -49,20 +54,43 @@ namespace ProjectCoral
              _rightWingIndex = _model.Bones.IndexOf(_model.Bones["WingRight"]);
         }
 
+        public void SlowDown(bool isFrog)
+        {
+            if (!_isSlow)
+            {
+                _speed = isFrog ? _speed / 4 : _speed / 3;
+                _isSlow = true;
+                _slowDownTime = _maxSlowDownTime;
+            }
+        }
+
         public void Update(GameTime gameTime)
         {
+           
             float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_isSlow)
+            {
+                _slowDownTime -= delta;
+                if (_slowDownTime <= 0)
+                {
+                    _slowDownTime = 0;
+                    _isSlow = false;
+                    _speed = _maxSpeed;
+                }
+            }
 
             _wingAngle = (float)Math.Sin(8 * gameTime.TotalGameTime.TotalSeconds) / 2.0f;
 
             if (_moving)
             {
                 score += delta;
-                _position.Z = MaxSpeed * (float)gameTime.TotalGameTime.TotalSeconds;
+                _position.Z +=  _speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 if (_position.Z >= _maxDistance)
                     _moving = false;
             }
+
+            System.Diagnostics.Trace.WriteLine("Butterfly: " + _position.Z);
         }
 
         /// <summary>

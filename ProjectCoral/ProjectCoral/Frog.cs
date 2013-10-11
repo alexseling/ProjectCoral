@@ -20,7 +20,7 @@ namespace ProjectCoral
 
         private float legAngle = 0;
         private float legAngleRate = 2f;
-        private const float maxLegAngle = .6f;
+        private const float maxLegAngle = .7f;
         private const float minLegAngle = 0;
 
         private float headAngle = 0;
@@ -59,6 +59,22 @@ namespace ProjectCoral
             backLeftLeg = model.Bones.IndexOf(model.Bones["LeftBackLeg"]);
             backRightLeg = model.Bones.IndexOf(model.Bones["RightBackLeg"]);
             head = model.Bones.IndexOf(model.Bones["Head"]);
+        }
+
+        public bool TestForCollision(Vector3 testPosition)
+        {
+            BoundingSphere bs = model.Meshes[0].BoundingSphere;
+            bs = bs.Transform(model.Bones[0].Transform);
+
+            bs.Radius *= 1.5f;
+            bs.Center += position;
+
+            if ((testPosition - bs.Center).LengthSquared() < bs.Radius * bs.Radius)
+            {   
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
