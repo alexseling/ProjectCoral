@@ -14,7 +14,7 @@ namespace ProjectCoral
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class ProjectCoralGame : Microsoft.Xna.Framework.Game        
+    public class ProjectCoralGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -265,8 +265,20 @@ namespace ProjectCoral
             switch (screen)
             {
                 case GameScreens.Splash:
-                    _currentGameScreen.
+                    _currentGameScreen = _splashScreen;
+                    break;
+                case GameScreens.Menu:
+                    _currentGameScreen = _menuGameScreen;
+                    break;
+                case GameScreens.Game:
+                    _currentGameScreen = _gameplayScreen;
+                    break;
+                case GameScreens.ScoreScreen:
+                    _currentGameScreen = _scoreScreen;
+                    break;
             }
+            
+            _currentGameScreen.Activate();
         }
 
     }
