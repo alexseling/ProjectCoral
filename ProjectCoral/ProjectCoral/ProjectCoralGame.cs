@@ -18,7 +18,10 @@ namespace ProjectCoral
     {
         private GraphicsDeviceManager graphics;
         public GraphicsDeviceManager Graphics {get { return graphics; }}
-        
+
+        private float score = 0;
+        public float Score { get { return score; } set { score = value; } }
+
         SpriteBatch spriteBatch;
 
         private Camera _camera;

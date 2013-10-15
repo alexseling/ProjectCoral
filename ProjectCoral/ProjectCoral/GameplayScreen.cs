@@ -100,7 +100,7 @@ namespace ProjectCoral
 
                 if (b.TestForCollision(-1 * _butterfly.Position))
                 {
-                    Game.SoundBank.PlayCue("explosion3");
+                    Game.SoundBank.PlayCue("batchirp");
                     _butterfly.SlowDown(false);
                     System.Diagnostics.Trace.WriteLine("BAT");
                 }
@@ -111,7 +111,7 @@ namespace ProjectCoral
 
                 if (f.TestForCollision(-1 * _butterfly.Position))
                 {
-                    Game.SoundBank.PlayCue("explosion3");
+                    Game.SoundBank.PlayCue("frog");
                     _butterfly.SlowDown(true);
                     System.Diagnostics.Trace.WriteLine("FROG5");
                 }
@@ -160,7 +160,7 @@ namespace ProjectCoral
         
         public override void DrawSprites(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            string scoreString = String.Format("{0:f}", _butterfly.score);
+            string scoreString = String.Format("{0:f}", _game.Score);
             spriteBatch.DrawString(scoreFont, scoreString, new Vector2(10, 10), Color.White);
         }
 
