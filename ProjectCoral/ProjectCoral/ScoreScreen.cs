@@ -56,8 +56,8 @@ namespace ProjectCoral
 
         public override void DrawSprites(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_splashScreenTexture, new Vector2(0, 0), Color.Transparent);
-            
+            spriteBatch.Draw(_splashScreenTexture, new Rectangle(0, 0, Game.Graphics.PreferredBackBufferWidth, Game.Graphics.PreferredBackBufferHeight),  null, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0.0f);
+
             base.DrawSprites(gameTime, spriteBatch);
         }
     }

@@ -175,5 +175,10 @@ namespace ProjectCoral
         {
             
         }
+
+        public void Reset()
+        {
+
+        }
     }
 }
