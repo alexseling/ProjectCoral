@@ -160,7 +160,7 @@ namespace ProjectCoral
         
         public override void DrawSprites(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            string scoreString = String.Format("{0:f}", _game.Score);
+            string scoreString = String.Format("{0:f}", _butterfly.score);
             spriteBatch.DrawString(scoreFont, scoreString, new Vector2(10, 10), Color.White);
         }
 
