@@ -16,6 +16,7 @@ namespace ProjectCoral
 
         private KeyboardState _currentKeyboardState;
 
+        private SpriteFont scoreFont;
 
         public ScoreScreen(ProjectCoralGame game) : base(game)
         {
@@ -29,8 +30,9 @@ namespace ProjectCoral
 
         public override void LoadContent()
         {
-            _splashScreenTexture = Game.Content.Load<Texture2D>("SplashScreen_Awesome");
+            _splashScreenTexture = Game.Content.Load<Texture2D>("ScoreScreen_Awesome");
 
+            scoreFont = Game.Content.Load<SpriteFont>("endfont");
             base.LoadContent();
         }
 
@@ -56,7 +58,19 @@ namespace ProjectCoral
 
         public override void DrawSprites(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_splashScreenTexture, new Rectangle(0, 0, Game.Graphics.PreferredBackBufferWidth, Game.Graphics.PreferredBackBufferHeight),  null, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0.0f);
+            spriteBatch.Draw(_splashScreenTexture, new Rectangle(0, 0, Game.Graphics.PreferredBackBufferWidth, Game.Graphics.PreferredBackBufferHeight), Color.White);
+
+            string textString = "Your score";
+            string scoreString =  String.Format("{0:f}", _game.Score);
+            Vector2 scoreSize = scoreFont.MeasureString(scoreString);
+            Vector2 textSize = scoreFont.MeasureString(textString);
+
+            int height = Game.Graphics.PreferredBackBufferHeight;
+            int width = Game.Graphics.PreferredBackBufferWidth;
+
+
+            spriteBatch.DrawString(scoreFont, scoreString, new Vector2(width / 2 - scoreSize.X / 2, height / 2), Color.White);
+            spriteBatch.DrawString(scoreFont, textString, new Vector2(width / 2 - textSize.X / 2, height / 2 - textSize.Y), Color.White);
 
             base.DrawSprites(gameTime, spriteBatch);
         }
