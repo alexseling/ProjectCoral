@@ -132,6 +132,11 @@ namespace ProjectCoral
                 _butterfly.Position += new Vector3(horizontalMoveSpeed, 0, 0);
             }
 
+            if (_butterfly.Position.Z > 500.0f)
+            {
+                Game.SetScreen(ProjectCoralGame.GameScreens.ScoreScreen);
+            }
+
             Game.Camera.Update(gameTime);
 
             _previousKeyboardState = _currentKeyboardState;
