@@ -36,6 +36,9 @@ namespace ProjectCoral
 
         public override void Update(GameTime gameTime)
         {
+            if(Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Game.Exit();
+
             base.Update(gameTime);
         }
 

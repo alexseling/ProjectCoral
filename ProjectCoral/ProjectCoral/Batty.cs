@@ -106,7 +106,7 @@ namespace ProjectCoral
             BoundingSphere bs = model.Meshes[0].BoundingSphere;
             bs = bs.Transform(model.Bones[0].Transform);
 
-            bs.Radius *= 3f;
+            bs.Radius *= 1.5f;
             bs.Center += position;
 
             if ((testPosition - bs.Center).LengthSquared() < bs.Radius * bs.Radius)
