@@ -16,6 +16,7 @@ namespace ProjectCoral
 
         private KeyboardState _currentKeyboardState;
 
+        private SpriteFont scoreFont;
 
         public ScoreScreen(ProjectCoralGame game) : base(game)
         {
@@ -31,6 +32,7 @@ namespace ProjectCoral
         {
             _splashScreenTexture = Game.Content.Load<Texture2D>("SplashScreen_Awesome");
 
+            scoreFont = Game.Content.Load<SpriteFont>("scorefont");
             base.LoadContent();
         }
 
@@ -57,6 +59,14 @@ namespace ProjectCoral
         public override void DrawSprites(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_splashScreenTexture, new Vector2(0, 0), Color.Transparent);
+
+            string scoreString = String.Format("{0:f}", _game.Score);
+            Vector2 stringLength = scoreFont.MeasureString(scoreString);
+
+            int screenWidth = device.PresentationParameters.BackBufferWidth;
+            int screenHeight = device.PresentationParameters.BackBufferHeight;
+
+            spriteBatch.DrawString(scoreFont, scoreString, new Vector2(10, 10), Color.White);
             
             base.DrawSprites(gameTime, spriteBatch);
         }

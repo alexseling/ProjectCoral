@@ -24,6 +24,9 @@ namespace ProjectCoral
         private Camera _camera;
         public Camera Camera { get { return _camera; } }
 
+        private float _score = 0;
+        public float Score { get { return _score; } set { _score = value; } }
+
         public enum GameScreens
         {
             Splash,

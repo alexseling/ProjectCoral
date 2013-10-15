@@ -20,8 +20,6 @@ namespace ProjectCoral
         private int _rightWingIndex;
         private float _wingAngle = 0.0f;
 
-        public float score = 0;
-
         private const float _maxSpeed = 50f;
         private float _speed = _maxSpeed;
         public float Speed {get { return _speed; }}
@@ -83,14 +81,13 @@ namespace ProjectCoral
 
             if (_moving)
             {
-                score += delta;
+                _game.Score += delta;
                 _position.Z +=  _speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 if (_position.Z >= _maxDistance)
                     _moving = false;
             }
 
-            System.Diagnostics.Trace.WriteLine("Butterfly: " + _position.Z);
         }
 
         /// <summary>
